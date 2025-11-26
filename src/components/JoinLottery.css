@@ -1,0 +1,15 @@
+.join-lottery {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+}
+
+.tvl-component {
+    margin-top: 15px;
+}
+
+.join-button-component {
+    margin-bottom: 15px;
+}
