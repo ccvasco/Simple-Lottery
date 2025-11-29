@@ -1,8 +1,20 @@
+import { useReadContract, useReadContracts } from 'wagmi'
+import { abi as simpleLotteryAbi, address } from '../../scripts/abi/simpleLottery.json';
+import { anvil } from 'wagmi/chains';
 import './CurrentLotteryTable.css';
 
 export function CurrentLottery({ lottery }) {
 
     // const lotteryTickets = /* viem call to tickets bought */
+        // const { data: ticketsBought/*, isLoading, error*/ } = useReadContract({
+        //         abi: simpleLotteryAbi,
+        //         address: address,
+        //         functionName: 'totalTicketsBought',
+        //         chainId: anvil.id,
+        //         args: [round?.toString()],
+        //         enabled: !!round,
+        // });
+    
 
     return (
         <div className="ticket-list">
