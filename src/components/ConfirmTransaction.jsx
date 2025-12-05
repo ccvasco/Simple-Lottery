@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useWriteContract, useWalletClient } from 'wagmi'
 import { parseEther } from 'viem';
 import { abi as simpleLotteryAbi, address as simpleLottery } from '../../scripts/abi/simpleLottery.json';
+import './ConfirmTransaction.css';
 
-
-export function ConfirmTransaction({ inputTickets, formattedPrice }) {
+export function ConfirmTransaction({ inputTickets, formattedPrice, onClose }) {
 
 
     const { data: walletClient } = useWalletClient();
@@ -36,6 +36,12 @@ export function ConfirmTransaction({ inputTickets, formattedPrice }) {
         }
     }
 
+    function handleCancel() {
+        setIsConfirmed(false);
+        onClose();
+    }
+
+
     return (
         <div>
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -49,9 +55,9 @@ export function ConfirmTransaction({ inputTickets, formattedPrice }) {
                             for {inputTickets} tickets
                         </p>
                     </div>
-                    <div className="flex gap-3 justify-end">
-                        <button onClick={() => setIsConfirmed(false)}>Cancel</button>
-                        <button onClick={() => setIsConfirmed(true)}>Confirm & Send</button>
+                    <div className="confirm-transaction-buttons">
+                        <button className="transaction-button" onClick={handleCancel}>Cancel</button>
+                        <button className="transaction-button" onClick={() => setIsConfirmed(true)}>Confirm & Send</button>
                     </div>
                 </div>
             </div>

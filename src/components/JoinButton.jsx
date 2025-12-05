@@ -3,9 +3,10 @@ import { useAccount } from 'wagmi';
 import { useState } from 'react'
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { ConfirmTransaction } from './ConfirmTransaction';
+import './JoinButton.css';
 
 
-export function JoinButton({ formattedPrice }) {
+export function JoinButton({ formattedPrice/*, onOpenModal, onCloseModal*/ }) {
 
     const [inputTickets, setInputTickets] = useState('');
     const [showSendTransaction, setShowSendTransaction] = useState(false);
@@ -28,10 +29,14 @@ export function JoinButton({ formattedPrice }) {
             return;
         }
         setShowSendTransaction(true);
+
+        // onOpenModal?.();
     };
 
-    function closePopup() {
+    function closePopUp() {
+        // onCloseModal?.();
         setShowSendTransaction(false);
+        setInputTickets('');
     }
 
 
@@ -55,12 +60,20 @@ export function JoinButton({ formattedPrice }) {
                 Join
             </button>
             {showSendTransaction && (
-                <div className="confirm-join-transaction"/*use CSS to make this a popup */ >
-                    <ConfirmTransaction
-                        inputTickets={inputTickets}
-                        formattedPrice={formattedPrice}
-                        onClose={closePopup} // Pass a callback to close popup
-                    />
+                <div 
+                    className="popup"
+                    onClick={closePopUp} // click outside to close
+                >
+                    <div 
+                        className="popup-content"
+                        onClick={(e) => e.stopPropagation()} // prevents closing when clicking inside
+                    >
+                        <ConfirmTransaction
+                            inputTickets={inputTickets}
+                            formattedPrice={formattedPrice}
+                            onClose={closePopUp}
+                        />
+                    </div>
                 </div>
             )}
         </>

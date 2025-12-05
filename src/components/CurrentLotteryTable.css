@@ -4,3 +4,24 @@
     border: 1px solid #ccc;
     border-radius: 16px;
 }
+
+.lottery-table {
+    font-size: medium;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.lottery-table th,
+.lottery-table td {
+  border-right: 1px solid #ccc;  /* lines between columns and rows */
+  padding: 8px;
+}
+
+.lottery-table th:last-child,
+.lottery-table td:last-child {
+  border-right: none;           /* no line after last column */
+}
+
+.lottery-table th {
+  border-bottom: 1px solid #ccc;           /* no line after last column */
+}

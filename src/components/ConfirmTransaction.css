@@ -1,0 +1,14 @@
+
+.confirm-transaction-buttons {
+    display: grid;
+    /* grid-auto-flow: column; */
+    gap: 30px;
+    /* grid-auto-columns: ; */
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.transaction-button {
+    font-size: medium;
+}
+

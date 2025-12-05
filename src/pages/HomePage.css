@@ -1,6 +1,6 @@
 .current-lottery {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 0.5fr;
     gap: 16px;
     /* justify-content:space-between; */
 }

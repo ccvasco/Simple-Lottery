@@ -1,4 +1,5 @@
 import { JoinButton } from './JoinButton.jsx';
+import { useState } from 'react';
 import { TVL } from './TVL.jsx';
 import './JoinLottery.css';
 import { useReadContract, useReadContracts } from 'wagmi'
@@ -7,6 +8,9 @@ import { formatEther } from 'viem';
 import { anvil } from 'wagmi/chains';
 export function JoinLottery() {
 
+    // const [showPopUp, setShowPopup] = useState(false);
+    // const openModal = () => setShowPopup(true);
+    // const closeModal = () => setShowPopup(false);
 
     const { data: contractData, isLoading, error } = useReadContracts({
         contracts: [
@@ -30,7 +34,7 @@ export function JoinLottery() {
             },
         ]
     });
-   
+
 
 
     // const [price, round, pot] = contractData || [];
@@ -41,25 +45,28 @@ export function JoinLottery() {
     const formattedPot = price ? formatEther(pot) : 'NA';
 
     const { data: ticketsBought/*, isLoading, error*/ } = useReadContract({
-            abi: simpleLotteryAbi,
-            address: simpleLotteryAddress,
-            functionName: 'totalTicketsBought',
-            chainId: anvil.id,
-            args: [round?.toString()],
-            enabled: !!round,
+        abi: simpleLotteryAbi,
+        address: simpleLotteryAddress,
+        functionName: 'totalTicketsBought',
+        chainId: anvil.id,
+        args: [round?.toString()],
+        enabled: !!round,
     });
 
 
     if (isLoading) return <div>Loading...</div>;
 
     return (
-        <div className="join-lottery">
-            <div className="tvl-component">
-                <TVL formattedPrice={formattedPrice} formattedPot={formattedPot} ticketsBought={ticketsBought}/>
+        <>
+            <div className="join-lottery">
+                <div className="tvl-component">
+                    <TVL formattedPrice={formattedPrice} formattedPot={formattedPot} ticketsBought={ticketsBought} />
+                </div>
+                <div className="join-button-component" /*onClick={openModal}*/>
+                    <JoinButton formattedPrice={formattedPrice} />
+                </div>
             </div>
-            <div className="join-button-component">
-                <JoinButton formattedPrice={formattedPrice} />
-            </div>
-        </div>
+        </>
+
     );
 }

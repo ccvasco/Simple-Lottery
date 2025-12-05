@@ -4,17 +4,17 @@ import { abi as simpleLotteryAbi, address as simpleLotteryAddress } from '../../
 import { anvil } from 'wagmi/chains';
 import './CurrentLotteryTable.css';
 
-export function CurrentLottery({ lottery }) {
+export function CurrentLotteryTable() {
 
            //scroll bar
         const chatMessagesRef = useRef(null);
 
-        useEffect(() => {
-            const containerElement = chatMessagesRef.current;
-            if (chatMessagesRef) {
-                containerElement.scrollTop = containerElement.scrollHeight;
-            }
-        }, [lottery]);
+        // useEffect(() => {
+        //     const containerElement = chatMessagesRef.current;
+        //     if (chatMessagesRef) {
+        //         containerElement.scrollTop = containerElement.scrollHeight;
+        //     }
+        // }, []);
 
         const { data: round, isLoading: roundLoading/*, error: errorLoading*/ } = useReadContract({
                 abi: simpleLotteryAbi,
@@ -31,6 +31,8 @@ export function CurrentLottery({ lottery }) {
                 args: [round?.toString()],
                 enabled: !!round,
         });
+
+        
 
         if (roundLoading) return <div>Loading round...</div>
         if (isLoading) return <div>Loading purchases...</div>
@@ -59,7 +61,7 @@ export function CurrentLottery({ lottery }) {
                     <tr>
                         <th>Address</th>
                         <th>Timestamp</th>
-                        <th>Number of Tickets</th>
+                        <th># Tickets</th>
                         <th>Value</th>
                     </tr>
                 </thead>
@@ -69,7 +71,7 @@ export function CurrentLottery({ lottery }) {
                             <td>{truncateAddress(t.buyer)}</td>
                             <td>{new Date(Number(t.timestamp) * 1000).toLocaleString()}</td>
                             <td>{String(t.numberOfTickets)}</td>
-                            <td>{Number(t.value)/1e18}</td>
+                            <td>{Number(t.value)/1e18} ETH</td>
                         </tr>
                     ))}
                 </tbody>
